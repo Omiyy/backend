@@ -1,6 +1,7 @@
 import mongoose  from "mongoose";
-import bycrypt from "bcrypt";
-import 
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+
 
 
 
@@ -48,13 +49,13 @@ const UserSchema = new mongoose.Schema(
 
 UserSchema.pre("save",async function(next){
     if(this.isModified("password")){
-        this.password = await bycrypt.hash(this.password,10);
+        this.password = await bcrypt.hash(this.password,10);
     }
     next();
 });
 
 UserSchema.methods.isPasswordMatch = async function(password){
-    return await bycrypt.compare(password,this.password);
+    return await bcrypt.compare(password,this.password);
 }
 
 UserSchema.methods.generateAccessToken = function(){

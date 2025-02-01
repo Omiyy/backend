@@ -5,3 +5,4 @@ class APIResponse {
     this.message = message;
   }
 }
+export default APIResponse;
